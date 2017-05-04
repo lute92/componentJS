@@ -1,0 +1,19 @@
+{
+  "name": "component-js",
+  "version": "0.0.1",
+  "description": "Testing Html Javascript Compoentns",
+  "main": "components.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lute92/componentJS.git"
+  },
+  "author": "lute",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lute92/componentJS/issues"
+  },
+  "homepage": "https://github.com/lute92/componentJS#readme"
+}
