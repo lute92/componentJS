@@ -1,2 +1,3 @@
 # componentJS
-Testing Html Javascript Compoentns
+Testing Html Javascript Components
+
