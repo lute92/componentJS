@@ -23,13 +23,97 @@
 
       <script type="text/javascript">
 
+        let util = new Utility();
+        let students = [];
+
         $(document).ready(function(){
-          console.log("This is testing!")
+
+          let student = new Object ();
+          student.id = util.getGuid();
+          student.name = "STK";
+          student.address = "Yangon";
+          student.dob = "14/01/2015";
+          students.push(student);
+
+          student = new Object ();
+          student.id = util.getGuid();
+          student.name = "Aung Linn";
+          student.address = "Yangon";
+          student.dob = "14/01/2015";
+          students.push(student);
+
+          student = new Object ();
+          student.id = util.getGuid();
+          student.name = "Nan Pwint";
+          student.address = "Mandalay";
+          student.dob = "14/01/2015";
+          students.push(student);
+
+          loadStudents();
 
 
-
-          
         });
+
+        function loadStudents(){
+          $.when(
+            util.loadTemplate("src/templates/student-row.html")
+          ).done(function(template){
+            $("#main-container").empty();
+            $.each(students, function(index, student){
+
+                $("#main-container").append(template);
+                let currentrow= $(document).find("div[name=student-row]").eq(index);
+
+                let txtId = util.getTextBox();
+                
+                txtId.text = student.id;
+                txtId.onEnterKeyPress = function(e){
+                  alert(txtId.getText());
+                };
+
+                let txtName = util.getTextBox();
+                txtName.parentByNameIndex = ["txtName_container",index];
+                txtName.text = student.name;
+                txtName.onEnterKeyPress = function(e){
+                  alert(txtName.getText());
+                };
+
+                let txtAddress = util.getTextBox();
+                txtAddress.parentByNameIndex = ["txtAddress_container", index];
+                txtAddress.text = student.address;
+                txtAddress.onEnterKeyPress = function(e){
+                  alert(txtAddress.getText());
+                };
+
+                let txtDOB = util.getTextBox();
+                txtDOB.parentByNameIndex = ["txtDob_container", index];
+                txtDOB.text =student.dob;
+                txtDOB.onEnterKeyPress = function(e){
+                  alert(txtDOB.getText());
+                };
+
+                /*let btnSave = util.getButton( );
+                btnSave.setPlaceHolderById(btnSave_container_id);
+                btnSave.value = "Save";
+                btnSave.type().info();
+                btnSave.onClick(function(){
+                  alert(btnSave.getId());
+                });*/
+
+
+                txtId.initialize();
+                txtName.initialize();
+                txtAddress.initialize();
+                txtDOB.initialize();
+                //btnSave.initialize();
+
+            });
+
+          })
+
+
+        }
+
       </script>
 
   </body>

@@ -236,6 +236,10 @@ Utility.prototype = function () {
 
     };
 
+  var ComponentJsException = function (message) {
+    this.message = message;
+    this.name = 'ComponentJs Exception';
+  }
   /**
   * Function name: guid
   * Author: STK
@@ -557,87 +561,90 @@ Utility.prototype = function () {
     */
 
     let TextBox = function(){
-
+      this.text = "";
+      this.parentId = undefined;
+      this.parentByNameIndex = undefined;
+      this.placeholderText = "";
+      this.id = guid();
+      this.onEnterKeyPress = function(){};
     };
 
     TextBox.prototype = function(){
-        let text = "";
-        let placeholderid = undefined;
-        let placeholdertext  = "";
-        let id = guid();
+
         let currentContext = null;
 
         let getHtmlContext = function(){
-            return currentContext;
+            return this.currentComponent;
         };
 
         let setHtmlContext = function(context){
             currentContext = context;
         };
 
-        let setText = function(val){
-            text = val;
-        }
-
         let getText = function(){
-            return $(`#${getId()}`).val();
+            return $(`#${this.id}`).val();
         }
 
-        let setPlaceHolderText = function(val){
-            placeholdertext = val;
+        let getParentId = function(){
+            return this.parentId;
         }
 
-        let setPlaceHolderById = function(val){
-            placeholderid = val;
-        }
-
-        let getPlaceHolderId = function(){
-            return placeholderid;
-        }
-
-        let onEnterKeyPressCallback = function(){}
+        /*
+        *let onEnterKeyPressCallback = function(){}
 
         let onEnterKeyPress = function(callback){
             onEnterKeyPressCallback = callback;
         }
+        **/
 
         let getId = function(){
-            return id;
+            return this.id;
+        }
+
+        let bindOnEnterKeyPressEvent = function(currentComponent, onEnterKeyPress){
+          let currentCallBack = onEnterKeyPress;
+          $(currentComponent).on('keypress',function(e){
+              if(e.keyCode == 13){//Enter Key
+                  console.log("Log from default onEnterKeyPress event.");
+                  currentCallBack(e);
+              }
+          });
         }
 
         let init = function(){
 
-            $(`#${getId()}`).remove();
+            $(`#${this.id}`).remove();
+            let currentComponent = undefined;
+            if(this.parentId != undefined){//ParentId is given
+                document.getElementById(`${this.parentId}`).innerHTML = `<input type='text' class='form-control' id='${this.id}' placeholder='${this.placeholderText}' value='${this.text}'/>`;
+                currentComponent = document.getElementById(this.id);
 
-            //let parentWidth = document.getElementById(placeholderid).offsetWidth;
-            $(`#${placeholderid}`).append(`<input type='text' class='form-control' id='${getId()}' placeholder='${placeholdertext}' />`);
+            }else if(this.parentByNameIndex.length == 2){//ParentName and Index are given
 
-            let currentComponent = document.getElementById(getId());
-            $(currentComponent).on('keypress',function(e){
-                if(e.keyCode == 13){//Enter Key
-                    onEnterKeyPressCallback();
-                }
-            });
+                document.getElementsByName(`${this.parentByNameIndex[0]}`)[this.parentByNameIndex[1]].innerHTML = `<input type='text' class='form-control' id='${this.id}' placeholder='${this.placeholderText}' value='${this.text}'/>`;
+                currentComponent = document.getElementsByName(this.parentByNameIndex[0])[this.parentByNameIndex[1]];
+
+            }
+            
+            bindOnEnterKeyPressEvent(currentComponent, this.onEnterKeyPress);
 
         }
 
+
+
         let show = function(){
-            $(`#${getId()}`).show();
+            $(`#${this.id}`).show();
         };
 
         let hide = function(){
-            $(`#${getId()}`).hide();
+            $(`#${this.id}`).hide();
         };
 
         return{
-            setText : setText,
             getText : getText,
-            setPlaceHolderById :setPlaceHolderById,
-            getPlaceHolderId : getPlaceHolderId,
-            onEnterKeyPress : onEnterKeyPress,
+            getParentId : getParentId,
             getId: getId,
             initialize : init,
-            setPlaceHolderText : setPlaceHolderText,
             show : show,
             hide : hide,
             getHtmlContext : getHtmlContext
@@ -779,6 +786,7 @@ Utility.prototype = function () {
 
     let Button = function(){
         this.value= "Button";
+
     };
 
     Button.prototype = function(){
