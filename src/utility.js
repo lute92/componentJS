@@ -236,10 +236,10 @@ Utility.prototype = function () {
 
     };
 
-  var ComponentJsException = function (message) {
-    this.message = message;
-    this.name = 'ComponentJs Exception';
-  }
+    var ComponentJsException = function (message) {
+      this.message = message;
+      this.name = 'ComponentJs Exception';
+    }
   /**
   * Function name: guid
   * Author: STK
@@ -625,7 +625,7 @@ Utility.prototype = function () {
                 currentComponent = document.getElementsByName(this.parentByNameIndex[0])[this.parentByNameIndex[1]];
 
             }
-            
+
             bindOnEnterKeyPressEvent(currentComponent, this.onEnterKeyPress);
 
         }
