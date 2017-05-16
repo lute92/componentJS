@@ -65,8 +65,9 @@
                 let currentrow= $(document).find("div[name=student-row]").eq(index);
 
                 let txtId = util.getTextBox();
-                
+
                 txtId.text = student.id;
+                txtId.parentByNameIndex = ["txtId_container",index];
                 txtId.onEnterKeyPress = function(e){
                   alert(txtId.getText());
                 };

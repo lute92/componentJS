@@ -589,14 +589,6 @@ Utility.prototype = function () {
             return this.parentId;
         }
 
-        /*
-        *let onEnterKeyPressCallback = function(){}
-
-        let onEnterKeyPress = function(callback){
-            onEnterKeyPressCallback = callback;
-        }
-        **/
-
         let getId = function(){
             return this.id;
         }
@@ -629,7 +621,6 @@ Utility.prototype = function () {
             bindOnEnterKeyPressEvent(currentComponent, this.onEnterKeyPress);
 
         }
-
 
 
         let show = function(){
