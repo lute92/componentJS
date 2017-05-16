@@ -583,15 +583,15 @@ Utility.prototype = function () {
 
         let getText = function(){
             return $(`#${this.id}`).val();
-        }
+        };
 
         let getParentId = function(){
             return this.parentId;
-        }
+        };
 
         let getId = function(){
             return this.id;
-        }
+        };
 
         let bindOnEnterKeyPressEvent = function(currentComponent, onEnterKeyPress){
           let currentCallBack = onEnterKeyPress;
@@ -601,7 +601,7 @@ Utility.prototype = function () {
                   currentCallBack(e);
               }
           });
-        }
+        };
 
         let init = function(){
 
@@ -620,7 +620,7 @@ Utility.prototype = function () {
 
             bindOnEnterKeyPressEvent(currentComponent, this.onEnterKeyPress);
 
-        }
+        };
 
 
         let show = function(){
