@@ -11,17 +11,16 @@ function Button(){
 };
 
 Button.prototype = function(){
-    let placeHolderId = undefined;
-    let _type="btn-default";
-    let _currentContext = null;
 
+    let _type="btn-default";
+    let _htmlContext = null;
 
     let getHtmlContext = function(){
-        return _currentContext;
+        return _htmlContext;
     };
 
     let setHtmlContext = function(val){
-        _currentContext = val;
+        _htmlContext = val;
     }
 
     let getType = function(){
@@ -106,7 +105,7 @@ Button.prototype = function(){
           document.getElementsByName(`${this.parentByNameIndex[0]}`)[this.parentByNameIndex[1]].innerHTML = `<button id=${this.id} class='btn ${getType()}'>${this.value}</button>`;
           currentComponent = document.getElementsByName(this.parentByNameIndex[0])[this.parentByNameIndex[1]];
       }
-      setHtmlContext = $(currentComponent);
+      setHtmlContext($(currentComponent));
       bindOnClickEvent(currentComponent, this.onClick);
     }
 

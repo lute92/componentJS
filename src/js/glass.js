@@ -1,11 +1,7 @@
-
 var button = require('./button.js');
+function Glass(){};
 
-function Components(){
-
-};
-
-Components.prototype = function(){
+Glass.prototype = function(){
 
   let getButton = function(){
     return new button();
@@ -15,6 +11,13 @@ Components.prototype = function(){
     getButton : getButton
   };
 
+
 }();
 
-module.exports = Components;
+var _publish = (function getGlass() {
+  return new Glass();
+})();
+
+
+
+module.exports = _publish;

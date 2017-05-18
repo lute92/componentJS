@@ -2,11 +2,13 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/js/app.js'),
+  entry: path.resolve(__dirname, './src/js/glass.js'),
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'app.js',
-        publicPath: 'assets'
+        filename: 'glass.js',
+        publicPath: 'assets',
+        library: 'glass',
+        libraryTarget: 'window'
 
     },
     module : {

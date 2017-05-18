@@ -1,3 +1,4 @@
+window["glass"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -63,7 +64,7 @@
 /******/ 	__webpack_require__.p = "assets";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,25 +74,28 @@
 "use strict";
 
 
-var Button = function Button(id) {
+var utility = __webpack_require__(2);
+var _utility = new utility();
+
+function Button() {
     this.value = "Button";
-    this.id = id;
+    this.id = _utility.getGuid();
     this.onClick = function () {};
     this.parentId = undefined;
     this.parentByNameIndex = undefined;
 };
 
 Button.prototype = function () {
-    var placeHolderId = undefined;
+
     var _type = "btn-default";
-    var _currentContext = null;
+    var _htmlContext = null;
 
     var getHtmlContext = function getHtmlContext() {
-        return _currentContext;
+        return _htmlContext;
     };
 
     var setHtmlContext = function setHtmlContext(val) {
-        _currentContext = val;
+        _htmlContext = val;
     };
 
     var getType = function getType() {
@@ -175,7 +179,7 @@ Button.prototype = function () {
             document.getElementsByName("" + this.parentByNameIndex[0])[this.parentByNameIndex[1]].innerHTML = "<button id=" + this.id + " class='btn " + getType() + "'>" + this.value + "</button>";
             currentComponent = document.getElementsByName(this.parentByNameIndex[0])[this.parentByNameIndex[1]];
         }
-        setHtmlContext = $(currentComponent);
+        setHtmlContext($(currentComponent));
         bindOnClickEvent(currentComponent, this.onClick);
     };
 
@@ -188,6 +192,7 @@ Button.prototype = function () {
         getHtmlContext: getHtmlContext
     };
 }();
+
 module.exports = Button;
 
 /***/ }),
@@ -197,30 +202,25 @@ module.exports = Button;
 "use strict";
 
 
-var Components = function Components() {};
+var button = __webpack_require__(0);
+function Glass() {};
 
-Components.prototype = function () {
-  var utility = null;
-
-  var getUtility = function getUtility() {
-    if (utility !== null) {
-      return utility;
-    } else {
-      return new Utility();
-    }
-  };
+Glass.prototype = function () {
 
   var getButton = function getButton() {
-    return new Button(getUtility().getGuid());
+    return new button();
   };
 
   return {
-    getButton: getButton,
-    getUtility: getUtility
+    getButton: getButton
   };
 }();
 
-module.exports = Components;
+var _publish = function getGlass() {
+  return new Glass();
+}();
+
+module.exports = _publish;
 
 /***/ }),
 /* 2 */
@@ -229,7 +229,7 @@ module.exports = Components;
 "use strict";
 
 
-var Utility = function Utility() {};
+function Utility() {};
 
 Utility.prototype = function () {
   /**
@@ -265,19 +265,6 @@ Utility.prototype = function () {
 }();
 
 module.exports = Utility;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var components = __webpack_require__(1);
-var button = __webpack_require__(0);
-var utility = __webpack_require__(2);
-
-console.log(components);
 
 /***/ })
 /******/ ]);
