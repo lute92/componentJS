@@ -1,10 +1,10 @@
 
 let utility = require('./utility.js');
-let _utility = new utility();
+
 
 function Button(){
     this.value= "Button";
-    this.id = _utility.getGuid();
+    this.id = utility.getGuid();
     this.onClick = function(){};
     this.parentId = undefined;
     this.parentByNameIndex = undefined;

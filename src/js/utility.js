@@ -39,4 +39,7 @@ Utility.prototype = function(){
   };
 }();
 
-module.exports = Utility;
+let getUtility = function(){return new Utility();}
+let utility = getUtility();
+
+module.exports = utility;

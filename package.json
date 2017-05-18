@@ -4,7 +4,8 @@
   "description": "Testing Html Javascript Compoentns",
   "main": "components.js",
   "scripts": {
-    "test":  "mocha"
+    "test":  "mocha",
+    "build" : "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",

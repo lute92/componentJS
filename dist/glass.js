@@ -75,11 +75,10 @@ window["glass"] =
 
 
 var utility = __webpack_require__(2);
-var _utility = new utility();
 
 function Button() {
     this.value = "Button";
-    this.id = _utility.getGuid();
+    this.id = utility.getGuid();
     this.onClick = function () {};
     this.parentId = undefined;
     this.parentByNameIndex = undefined;
@@ -232,39 +231,44 @@ module.exports = _publish;
 function Utility() {};
 
 Utility.prototype = function () {
-  /**
-  * Function name: loadTemplate
-  * Author: STK
-  * Description : This method used to load HTML templates
-  * Param1: 'url' : to pass url of the html template
-  * Param2: callback to retrieved parsed html
-  */
+    /**
+    * Function name: loadTemplate
+    * Author: STK
+    * Description : This method used to load HTML templates
+    * Param1: 'url' : to pass url of the html template
+    * Param2: callback to retrieved parsed html
+    */
 
-  var loadTemplate = function loadTemplate(url) {
-    return $.get(url, function (data) {
-      var parsed = $.parseHTML(data);
-      return parsed;
-    });
-  };
+    var loadTemplate = function loadTemplate(url) {
+        return $.get(url, function (data) {
+            var parsed = $.parseHTML(data);
+            return parsed;
+        });
+    };
 
-  var guid = function guid() {
+    var guid = function guid() {
 
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-  };
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    };
 
-  var s4 = function s4() {
+    var s4 = function s4() {
 
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-  };
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    };
 
-  return {
-    loadTemplate: loadTemplate,
-    getGuid: guid
+    return {
+        loadTemplate: loadTemplate,
+        getGuid: guid
 
-  };
+    };
 }();
 
-module.exports = Utility;
+var getUtility = function getUtility() {
+    return new Utility();
+};
+var utility = getUtility();
+
+module.exports = utility;
 
 /***/ })
 /******/ ]);
