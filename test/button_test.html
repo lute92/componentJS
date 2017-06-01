@@ -1,0 +1,34 @@
+
+#!html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Button tests</title>
+  <link rel="stylesheet" media="all" href="../test/lib/css/mocha.css">
+</head>
+<body>
+  <div id="mocha"><p><a href=".">Button Test</a></p></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+  <div id= "btnParent">
+
+  </div>
+
+  <script src="../test/lib/js/mocha.min.js"></script>
+  <script src="../test/lib/js/chai.min.js"></script>
+  <script src="../test/lib/js/sinon.min.js"></script>
+
+  <script src="../src/js/utility.js"></script>
+  <script src="../src/js/button.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script src="../test/unit-test/button_test.js"></script>
+
+  <script>
+    window.onload = function(){
+      mocha.run();
+    }
+  </script>
+
+</body>
+</html>

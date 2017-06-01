@@ -1,0 +1,23 @@
+{
+  "name": "component-js",
+  "description": "Testing Html Javascript Compoentns",
+  "main": "glass.js",
+  "authors": [
+    "me"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/lute92/componentJS",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "mocha": "^3.4.1",
+    "chai": "^3.5.0",
+    "sinon": "^2.2.0",
+    "Events": "events#^1.0.0"
+  }
+}

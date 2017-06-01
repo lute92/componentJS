@@ -1,122 +1,119 @@
 
-let utility = require('./utility.js');
+(function(exports){
+  "use strict";
 
+  function Button(){
+      this.value= "";
+      this.id = utility.getGuid();
+      this.onClick = function(){};
+      this.parentId = "";
+      this.parentByNameIndex = [];
+  };
 
-function Button(){
-    this.value= "Button";
-    this.id = utility.getGuid();
-    this.onClick = function(){};
-    this.parentId = undefined;
-    this.parentByNameIndex = undefined;
-};
-
-Button.prototype = function(){
-
-    let _type="btn-default";
-    let _htmlContext = null;
-
-    let getHtmlContext = function(){
-        return _htmlContext;
-    };
-
-    let setHtmlContext = function(val){
-        _htmlContext = val;
-    }
-
-    let getType = function(){
-        return _type;
-    };
-
-    let setType = function(css){
-        _type = css;
-    };
-
-    let getId = function(){
-        return this.id;
-    };
-
-    let getParentId = function(){
-        return this.parentId;
-    };
-
-    let setPlaceHolderById = function(val){
-        placeHolderId = val;
-    };
-
-    let bindOnClickEvent = function(currentComponent, onClick){
-      //let currentCallBack = onEnterKeyPress;
-      $(currentComponent).on('click',function(e){
-        onClick(e);
-      });
-
-    };
-
-    let type = function(){
-        return new ButtonType();
-    };
-
-    let ButtonType = function(){
-
-    };
-
-    ButtonType.prototype = function(){
-
-        let _default = function(){
+  Button.prototype = function(){
+      let _type =  "btn-default",
+      let _show = true,
+      let _hide = false,
+      let _disable = false,
+      let _enable = true,
+      _htmlContext = null,
+      
+      getHtmlContext = function(){
+          return _htmlContext;
+      },
+      setHtmlContext = function(val){
+          _htmlContext = val;
+      },
+      getType =function(){
+          return _type;
+      },
+      setType =function(css){
+          _type = css;
+      },
+      getId = function(){
+          return this.id;
+      },
+      getParentId = function(){
+          return this.parentId;
+      },
+      bindOnClickEvent = function(currentComponent, onClick){
+        currentComponent.addEventListener("click", function(e){
+          try{
+            onClick(e);
+          }catch(err){
+            throw err;
+          }
+        })
+      },
+      type = {
+        default : function(){
             setType("btn-default");
-        };
-
-        let warning = function(){
+        },
+        warning : function(){
             setType("btn-warning");
-        };
-
-        let success = function(){
+        },
+        success : function(){
             setType("btn-success");
-        };
-
-        let danger = function(){
+        },
+        danger : function(){
             setType("btn-danger");
-        };
-
-        let info = function(){
+        },
+        info : function(){
             setType("btn-info");
-        };
-
-        let primary = function(){
+        },
+        primary : function(){
             setType("btn-primary");
-        };
+        }
+      },
+      initialize = function(){
+        let ele = document.getElementById(this.getId());
+        if (ele!== null) ele.parentNode.removeChild(ele);
 
-        return {
-            default: _default,
-            success : success,
-            warning : warning,
-            danger : danger,
-            info : info,
-            primary : primary
-        };
-    }();
+        let currentComponent = undefined;
 
-    let initialize = function(){
-      $(`#${this.id}`).remove();
-      let currentComponent = undefined;
-      if(this.parentId != undefined){//ParentId is given
-          document.getElementById(`${this.parentId}`).innerHTML = `<button id=${this.id} class='btn ${getType()}'>${this.value}</button>`;
-          currentComponent = document.getElementById(this.id);
-      }else if(this.parentByNameIndex.length == 2){//ParentName and Index are given
-          document.getElementsByName(`${this.parentByNameIndex[0]}`)[this.parentByNameIndex[1]].innerHTML = `<button id=${this.id} class='btn ${getType()}'>${this.value}</button>`;
-          currentComponent = document.getElementsByName(this.parentByNameIndex[0])[this.parentByNameIndex[1]];
-      }
-      setHtmlContext($(currentComponent));
-      bindOnClickEvent(currentComponent, this.onClick);
-    }
+        if(this.parentId != undefined){//ParentId is given
+            document.getElementById(`${this.parentId}`).innerHTML = `<button id=${this.getId()} class='btn ${getType()}'>${this.value}</button>`;
+            currentComponent = document.getElementById(this.getId());
+        }else if(this.parentByNameIndex.length == 2){//ParentName and Index are given
+            document.getElementsByName(`${this.parentByNameIndex[0]}`)[this.parentByNameIndex[1]].innerHTML = `<button id=${this.getId()} class='btn ${getType()}'>${this.value}</button>`;
+            currentComponent = document.getElementsByName(this.parentByNameIndex[0])[this.parentByNameIndex[1]];
+        }else {
+          //throw Error.parentIdNotGiven();
+        }
+        setHtmlContext(currentComponent);
+        bindOnClickEvent(currentComponent, this.onClick);
+      },
+      remove = function(){
+        document.getElementById(this.getId()).parentNode.removeChild(document.getElementById(this.getId()));
+      },
+      disable = function(){
+        document.getElementById(this.getId()).readOnly = true;
+      },
+      enable = function(){
+        document.getElementById(this.getId()).readOnly = false;
+      },
+      show = function(){
+        document.getElementById(this.getId()).style.visibility = "visible";
+      },
+      hide = function(){
+        document.getElementById(this.getId()).style.visibility = "hidden";
+      };
 
-    return {
-        getId: getId,
+      return {
+        getHtmlContext : getHtmlContext,
+        setHtmlContext : setHtmlContext,
+        getType : getType,
+        getId : getId,
         getParentId : getParentId,
         type: type,
-        getType: getType,
-        initialize : initialize,
-        getHtmlContext : getHtmlContext
-    };
-}();
+        init : initialize,
+        remove : remove,
+        disable : disable,
+        enable : enable,
+        show : show,
+        hide: hide
 
-module.exports = Button;
+      }
+  }();
+  exports.Button = Button;
+})(this);

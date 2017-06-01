@@ -119,7 +119,11 @@ Button.prototype = function () {
 
     var bindOnClickEvent = function bindOnClickEvent(currentComponent, onClick) {
         //let currentCallBack = onEnterKeyPress;
-        $(currentComponent).on('click', function (e) {
+        /*$(currentComponent).on('click',function(e){
+          onClick(e);
+        });*/
+
+        currentComponent.addEventListener("click", function (e) {
             onClick(e);
         });
     };
@@ -167,18 +171,21 @@ Button.prototype = function () {
     }();
 
     var initialize = function initialize() {
-        $("#" + this.id).remove();
+        var ele = document.getElementById(this.getId());
+        if (ele !== null) ele.parentNode.removeChild(ele);
+
         var currentComponent = undefined;
+
         if (this.parentId != undefined) {
             //ParentId is given
-            document.getElementById("" + this.parentId).innerHTML = "<button id=" + this.id + " class='btn " + getType() + "'>" + this.value + "</button>";
-            currentComponent = document.getElementById(this.id);
+            document.getElementById("" + this.parentId).innerHTML = "<button id=" + this.getId() + " class='btn " + getType() + "'>" + this.value + "</button>";
+            currentComponent = document.getElementById(this.getId());
         } else if (this.parentByNameIndex.length == 2) {
             //ParentName and Index are given
-            document.getElementsByName("" + this.parentByNameIndex[0])[this.parentByNameIndex[1]].innerHTML = "<button id=" + this.id + " class='btn " + getType() + "'>" + this.value + "</button>";
+            document.getElementsByName("" + this.parentByNameIndex[0])[this.parentByNameIndex[1]].innerHTML = "<button id=" + this.getId() + " class='btn " + getType() + "'>" + this.value + "</button>";
             currentComponent = document.getElementsByName(this.parentByNameIndex[0])[this.parentByNameIndex[1]];
         }
-        setHtmlContext($(currentComponent));
+        setHtmlContext(currentComponent);
         bindOnClickEvent(currentComponent, this.onClick);
     };
 
@@ -231,40 +238,40 @@ module.exports = _publish;
 function Utility() {};
 
 Utility.prototype = function () {
-    /**
-    * Function name: loadTemplate
-    * Author: STK
-    * Description : This method used to load HTML templates
-    * Param1: 'url' : to pass url of the html template
-    * Param2: callback to retrieved parsed html
-    */
+  /**
+  * Function name: loadTemplate
+  * Author: STK
+  * Description : This method used to load HTML templates
+  * Param1: 'url' : to pass url of the html template
+  * Param2: callback to retrieved parsed html
+  */
 
-    var loadTemplate = function loadTemplate(url) {
-        return $.get(url, function (data) {
-            var parsed = $.parseHTML(data);
-            return parsed;
-        });
-    };
+  var loadTemplate = function loadTemplate(url) {
+    return $.get(url, function (data) {
+      var parsed = $.parseHTML(data);
+      return parsed;
+    });
+  };
 
-    var guid = function guid() {
+  var guid = function guid() {
 
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    };
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  };
 
-    var s4 = function s4() {
+  var s4 = function s4() {
 
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    };
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  };
 
-    return {
-        loadTemplate: loadTemplate,
-        getGuid: guid
+  return {
+    loadTemplate: loadTemplate,
+    getGuid: guid
 
-    };
+  };
 }();
 
 var getUtility = function getUtility() {
-    return new Utility();
+  return new Utility();
 };
 var utility = getUtility();
 
